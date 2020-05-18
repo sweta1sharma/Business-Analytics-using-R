@@ -1,0 +1,149 @@
+---
+title: "R Notebook"
+output: html_notebook
+author: "Sweta Sharma"
+Date: "09/19/2019"
+---
+
+# Assigment 2 
+
+## 1. CSV file for students taking exams, in which rows are students and columns are exams
+
+### Changing the present working directory
+
+```{r}
+setwd("/Users/swetasharma/Documents/Sweta/Sem_1/Statistics with R/Hw_2/")
+```
+
+### Exporting student exam data from csv
+```{r}
+# Read CSV into R data frame
+stu_sub_data <- read.csv(file="stu_subject.csv", header=FALSE, sep=",")
+stu_sub_data
+```
+
+## 2. CSV file for exam time slots, in which rows are exams and columns are timeslots
+```{r}
+# Read CSV into R data frame
+sub_time_data <- read.csv(file="sub_timeslot.csv", header=FALSE, sep=",")
+sub_time_data
+```
+```{r}
+class(sub_time_data)
+```
+
+## 3. R code to convert dataframe to 2 matrices
+
+```{r}
+stu_sub_matrix <- as.matrix(stu_sub_data)
+row.names(stu_sub_matrix) <- c("stu1","stu2","stu3","stu4")
+colnames(stu_sub_matrix) <- c("sub1","sub2","sub3","sub4","sub5")
+stu_sub_matrix
+```
+```{r}
+sub_time_matrix <- as.matrix(sub_time_data)
+row.names(sub_time_matrix) <- c("sub1","sub2","sub3","sub4","sub5")
+colnames(sub_time_matrix) <- c("slot1","slot2","slot3","slot4")
+sub_time_matrix
+```
+```{r}
+class(sub_time_data)
+```
+## 4. Compute an exam schedule matrix
+### Multiplying the matrices to create a schedule
+```{r}
+stu_slot_schedule <- stu_sub_matrix %*% sub_time_matrix
+stu_slot_schedule
+```
+```{r}
+class(stu_slot_schedule)
+```
+
+### Converting schedule matrix, stu_slot_schedule, to a data frame
+```{r}
+df_stu_slot_schedule <- as.data.frame(stu_slot_schedule)
+df_stu_slot_schedule
+# Confirming class of data frame df_stu_slot_schedule
+class(df_stu_slot_schedule)
+```
+
+### Writing data frame to a csv file
+```{r}
+# Write data frame to a CSV
+write.csv(df_stu_slot_schedule, file = "stu_slot.csv")
+```
+
+## 5. R UDF function that computes the number of direct conflicts in the resulted schedule matrix
+### UDF function to find the number of conflicts
+
+
+```{r}
+count_conflict = function(x)
+{
+   return(length(x[x >= 2]))
+}
+
+count_conflict(stu_slot_schedule)
+#length((stu_slot_schedule[stu_slot_schedule >= 2]))
+#stu_slot_schedule[stu_slot_schedule[,] >=2 ]
+```
+
+## 6. R function for optimal slot
+
+### Create compute_optimal_matrix UDF where k is the no of times schedule matrix will be randomly generated
+```{r}
+
+compute_optimal_matrix = function(k)
+{
+for(x in 1:k){
+# Random assign 0 or 1 to sub_time_matrix
+
+  r <- 5
+  c <- 4
+  sub_time_random <- matrix(0, r, c)
+  for(i in 1:r){
+      for(j in 1:c){
+        sub_time_random[i, j] <- sample(c(0,1),1)
+      }
+  }
+
+  row.names(sub_time_random) <- c("r_sub1", "r_sub2", "r_sub3", "r_sub4", "r_sub5")
+  colnames(sub_time_random) <- c("r_slot1", "r_slot2", "r_slot3", "r_slot4")
+
+  # Multiply matrices to create a schedule
+
+  stu_slot_random <- stu_sub_matrix %*% sub_time_random
+  #print(stu_slot_random)
+
+  # Compute the no of conflicts
+  if(x ==1){
+      conflict_number <- count_conflict(stu_slot_random)
+      #rint("I am in loop 1" )
+      #print(conflict_number)
+  }
+  else{
+  
+      if(count_conflict(stu_slot_random) < conflict_number){
+      conflict_number <- count_conflict(stu_slot_random)
+      optimal_matrix <- sub_time_random
+      }
+  
+  }
+
+# Check if the new result is less than last result. if yes, assign matrix to a variable
+  
+}
+# at last print and export variable to csv
+print("the optimal count is:")
+print(conflict_number)
+print("the optimal matrix is:")
+print(optimal_matrix)
+df_optimal_matrix <- as.data.frame(optimal_matrix)
+write.csv(df_optimal_matrix, file = "optimal_stu_slot.csv")
+}
+```
+## calling compute_optimal_matrix function
+```{r}
+compute_optimal_matrix(100)
+```
+
