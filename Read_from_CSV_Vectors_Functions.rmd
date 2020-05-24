@@ -5,8 +5,6 @@ author: "Sweta Sharma"
 Date: "09/19/2019"
 ---
 
-# Assigment 2 
-
 ## 1. CSV file for students taking exams, in which rows are students and columns are exams
 
 ### Changing the present working directory
