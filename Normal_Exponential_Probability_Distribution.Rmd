@@ -1,0 +1,73 @@
+---
+title: "R Notebook"
+output: html_notebook
+author: "Sweta Sharma"
+date: "10/19/2019"
+---
+# 1. Normal Distribution
+## a. Probability of score less than 500 is p_score_less_500
+```{r}
+# Let random variable X represent quant scores
+# X is a normal distribution
+mu_quant <- 300
+sd_quant <- 50
+
+# Let random variable Y represent verbal scores
+# Y is a normal distribution
+
+mu_verbal <- 400
+sd_verbal <- 65
+
+# total_Score = X + Y
+
+rnorm(1, mean=mu_quant, sd=sd_quant) +rnorm(1, mean=mu_verbal, sd=sd_verbal)
+x <- replicate(10000, rnorm(1, mean=mu_quant, sd=sd_quant) +rnorm(1, mean=mu_verbal, sd=sd_verbal))
+score_less_500 <- x <=500
+p_score_less_500 <- sum(score_less_500)/length(score_less_500)
+p_score_less_500
+
+```
+## b. Probability of score greater than 800 is p_score_greater_800
+```{r}
+score_greater_800 <- x >= 800
+p_score_greater_800 <- sum(score_greater_800)/length(score_greater_800)
+p_score_greater_800
+```
+
+# 2. Exponential Distribution
+```{r}
+# Let X be the continous random variable representing the amount of time in minutes a bank clerk spends with his or her customer. 
+# X is exponentially distributed 
+mu <- 4 
+lambda <- 1/mu
+# a.
+pexp(1,lambda)
+#  probability that the time with a customer, X <= 1 minute is 0.2211992
+
+#b.
+qexp(0.5, lambda)
+# 2.772589 minutes  is the median time the clerk spent 
+
+#c.
+qexp(.99, lambda)
+
+#d.
+qexp(.01, lambda)
+```
+```{r}
+mu_clerk_1 <- 1
+lambda_clerk_1 <- 1/mu_clerk_1
+mu_clerk_2 <- 3
+lambda_clerk_2 <- 1/mu_clerk_2
+
+# total_time = time_at_clerk_1 + time_at_clerk_2
+
+total_time <- rexp(1,lambda_clerk_1) + rexp(1,lambda_clerk_2)
+x <- replicate(10000, rexp(1,lambda_clerk_1) + rexp(1,lambda_clerk_2))
+time_less_than_1 <- x <= 1
+p_time_less_than_1 = sum(time_less_than_1)/length(time_less_than_1)
+p_time_less_than_1
+
+```
+
+ 
