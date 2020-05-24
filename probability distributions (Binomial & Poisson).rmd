@@ -1,0 +1,98 @@
+---
+title: "R Notebook"
+output: html_notebook
+author: "Sweta Sharma"
+Date: "09/13/2019"
+---
+```{r}
+n <- 10
+pi_A <- 0.45
+
+1- pi_A
+
+# p(X >= 5)
+## a.  
+
+1 - pbinom(4,10,0.45)
+
+# Show manual way
+
+## b.
+
+Prob_5_9 <- pbinom(8,10,.45) - pbinom(4, 10, .45)
+
+## c.
+
+# probability 0.45,
+
+for (pi in c(0.2, 0.45, 0.9))
+{
+n <- 10
+y <- c()
+k <- 1:10
+for(x in 1:10) {
+           y[x] <- dbinom(x,n,pi)
+}
+y
+barplot(y,k)
+}
+# for different values of 
+
+
+#x <- 1:10
+#x
+#dbinom(x,n,pi_A)
+#plot(x, dbinom(x, n, pi_A))
+
+
+```
+```{r}
+d. # cumulative distribution function
+n <- 10
+y <- c()
+k <- 1:10
+for(x in 1:10) {
+           y[x] <- pbinom(x,n,pi_A)
+}
+barplot(y,k)
+```
+
+```{r}
+# e.
+qbinom(.90, 10, 0.45)
+```
+
+```{r}
+# 2.
+# 2 people per minute
+lambda <- 2
+#a.
+dpois(0,lambda)
+#b.
+dpois(3,lambda)
+#c.
+ppois(3,lambda)
+#d.
+qpois(0.90,lambda)
+
+
+```
+
+```{r}
+#e.
+    for (lambda in c(1, 2, 10, 15, 20))
+    {
+#lambda <- 2
+y <- c()
+x <- 1:20
+for(k in 1:20) {
+           y[k] <- dpois(k,lambda)
+}
+barplot(y,x)}
+
+```
+
+```{r}
+choose(10,1) * 2^4
+```
+
