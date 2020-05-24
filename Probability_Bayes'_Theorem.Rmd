@@ -1,0 +1,87 @@
+---
+title: "R Notebook"
+output: html_notebook
+author: "Sweta Sharma"
+Date: "09/28/2019"
+---
+
+# Assigment 3
+
+## 1. Event Types
+
+### a. Just Mutually exclusive
+
+### b. None of the above
+
+### c. Just Mutually exclusive
+
+### d.Mutually exclusive and collectively exhaustive
+
+## 6.  A company researches travel claims. The probability that a claim includes service A or service B is 0.85. The probability that a claim does not include service A charges is 0.25. Charges for service A and service B are independent.What is the probability that a claim includes service B charges.
+## (A) 0.10 (B) 0.20 (C) 0.25 (D) 0.40 (E) 0.80
+
+## P(A or B) = 0.85
+
+# P(Not A) = 0.25
+
+# P(A) = 0.75
+
+# A and B are independent
+
+# P(B) = ?
+
+# P(A OR B) = P(A) + P(B) - P(A AND B)
+
+# 0.85 = 0.75 + P(B) - [P(A)*P(B)]
+
+# 0.1 = P(B) - 0.75* P(B)
+
+# 0.1 = 0.25 P(B)
+
+# P(B) = 0.40 # The answer is D
+
+## 7. A health study tracked a group of persons for five years. At the beginning of the study, 20% were classified as heavy smokers, 30% as light smokers, and 50% as nonsmokers. Results of the study showed that light smokers were twice as likely as nonsmokers to die during the five-year study, but only half as likely as heavy smokers. A randomly selected participant from the study died over the five- year period. Calculate the probability that the participant was a heavy smoker.
+# (A) 0.20 (B) 0.25 (C) 0.35 (D) 0.42 (E) 0.57
+
+### HS = 20% 0.20
+
+### LS = 30% = 0.30
+
+### NS = 50% = 0.50
+
+### P(D) = P(Die)
+
+### P(D | LS) = 2* P(D | NS) = P(D | HS) / 2
+
+### Using Bayes theoram
+
+### P(HS | D) =  [P(D|HS) * P(HS)]/[P(D|HS)* P(HS) + P(D | LS) * P(LS) + P(D | NS) * P(NS)]
+
+### P(HS | D) = [2 * P (D | LS) * 0.20]/[2 * P (D | LS) * 0.20 + P(D | LS) * 0.30 + {P(D | LS)/2} * .50]
+
+### P(HS | D) = [2 * P (D | LS) * 0.20]/ [P(D | LS)* {2 * 0.20 + 0.30 + 1/2 * 0.50}]
+
+### P (D | LS) cancels out in the numerator and denominator
+
+### P(HS | D) = 0.4 / [0.4 + 0.30 + 0.25]
+
+### P(HS | D) = 0.4 / [0.4 + 0.30 + 0.25]
+
+### P(HS | D) = 0.4 /0.95
+
+### P(HS | D) = 0.42 # The answer is D
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
