@@ -5,9 +5,7 @@ author: "Sweta Sharma"
 Date: "09/13/2019"
 ---
 
-# Assigment 1 
-
-# Given data for the problems
+# Given data 
 
 ```{r}
 gender = c("M","F","M","F", "F","M","F")
