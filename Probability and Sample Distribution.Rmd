@@ -1,0 +1,247 @@
+---
+title: "R Notebook"
+output:
+author: "Sweta Sharma"
+---
+
+
+```{r}
+
+# Verify the rule for k = 2, and k = 3 for a Binomial distribution 
+
+## Let the parameters size = 100 and Probability = 0.4 
+n <- 100
+p <- 0.4
+
+## mean of the binomial distribution
+mu <- n*p
+
+## Standard deviation of the distribution
+sigma <- sqrt(n * p *(1 - p))
+
+## Verifying Chebyshev’s Rule for k = 2; As per the rule atleat 75% of the value should be between mu+2*sigma and mu - 2*sigma
+pbinom(mu + 2* sigma, size = n, prob = p) - pbinom(mu - 2*sigma, size =n, prob = p)
+
+
+## Printing the range 
+
+c(mu - 2*sigma, mu + 2*sigma)
+
+## Verifying Chebyshev’s Rule for k = 3; As per the rule atleat 89% of the value should be between mu - 3*sigma and mu + 3*sigma
+
+pbinom(mu + 3* sigma, size = n, prob = p) - pbinom(mu - 3*sigma, size =n, prob = p)
+
+## Printing the range
+c(mu - 3*sigma, mu + 3*sigma)
+
+```
+
+```{r}
+
+# Verify the rule for k = 2, and k = 3 for a Normal distribution 
+
+## Let the parameters mu = 100 and standard deviation = 2 
+
+
+# mean of the distribution
+mu <- 100
+
+# Standard deviation of the distribution
+sigma <- 2
+
+# Verifying Chebyshev’s Rule for k = 2; As per the rule atleat 75% of the value should be between mu+2*sigma and mu - 2*sigma
+
+pnorm(mu + 2* sigma, mean = mu, sd = sigma) - pnorm(mu - 2*sigma, mean = mu, sd = sigma)
+
+
+#Printing the range 
+
+c(mu - 2*sigma, mu + 2*sigma)
+
+# Verifying Chebyshev’s Rule for k = 3; As per the rule atleat 89% of the value should be between mu+3*sigma and mu - 3*sigma
+
+pnorm(mu + 3* sigma, mean = mu, sd = sigma) - pnorm(mu - 3*sigma, mean = mu, sd = sigma)
+
+
+#Printing the range 
+
+c(mu - 3*sigma, mu + 3*sigma)
+
+```
+
+
+```{r}
+
+
+# Verify the rule for k = 2, and k = 3 for a Exponential distribution 
+
+## Let the parameter lambda = 0.5 
+lambda <- 0.5
+
+# mean of the distribution
+mu <- 1/lambda
+
+# Standard deviation of the distribution
+sigma <- 1/lambda
+
+# Verifying Chebyshev’s Rule for k = 2; As per the rule atleat 75% of the value should be between mu+2*sigma and mu - 2*sigma
+
+pexp(mu + 2*sigma,rate=lambda) - pexp(mu - 2*sigma,rate=lambda) 
+
+#Printing the range 
+
+c(mu - 2*sigma, mu + 2*sigma)
+
+# Verifying Chebyshev’s Rule for k = 3; As per the rule atleat 89% of the value should be between mu+3*sigma and mu - 3*sigma
+
+pexp(mu + 3*sigma,rate=lambda) - pexp(mu - 3*sigma,rate=lambda)
+
+
+#Printing the range 
+
+c(mu - 3*sigma, mu + 3*sigma)
+
+```
+
+```{r}
+
+
+# Verify the rule for k = 2, and k = 3 for a Uniform distribution 
+
+## Let the parameters maximum value = 100 and minimum value = 10 
+
+maximum <- 6
+minimum <- 2
+
+# mean of the distribution
+mu <- (maximum + minimum)/2
+mu
+
+# Standard deviation of the distribution
+sigma <- ((maximum - minimum)^2/12)^(1/2)
+sigma
+
+# Verifying Chebyshev’s Rule for k = 2; As per the rule atleat 75% of the value should be between mu+2*sigma and mu - 2*sigma
+
+punif(mu + 2* sigma, minimum, maximum) - punif(mu - 2*sigma, minimum, maximum)
+
+
+#Printing the range 
+
+c(mu - 2*sigma, mu + 2*sigma)
+
+# Verifying Chebyshev’s Rule for k = 3; As per the rule atleat 89% of the value should be between mu+3*sigma and mu - 3*sigma
+
+punif(mu + 3* sigma, minimum, maximum) - pnorm(mu - 3*sigma, minimum, maximum)
+
+
+#Printing the range 
+
+c(mu - 3*sigma, mu + 3*sigma)
+
+
+```
+```{r}
+# Question 3.b 
+
+library(purrr)
+population_size = 1000
+age_min = 18
+age_max = 50
+population = rdunif(population_size, a = age_min, b = age_max)
+print(population[1:10])
+```
+
+```{r}
+# As seen below, the distribution is uniform, using hist()
+hist(population)
+```
+
+
+``` {r}
+# Now randomly sample from the population. Probability of selection for each student is equal
+
+# For Sample Size = 200
+sample_size = 200
+age_sample = sample(population, sample_size, replace = TRUE)
+print(mean(age_sample))
+print(sd(age_sample))
+
+# Repeatedly sampling from the population for a number of times, and plot the distribution of the mean
+
+mean_sample = c()
+
+for (i in 0:100) {
+  sample = sample(population, sample_size, replace = TRUE)
+  mean_sample[i] = mean(sample)
+}
+hist(mean_sample)
+```
+
+```{r}
+# For Sample Size = 300
+sample_size = 300
+age_sample = sample(population, sample_size, replace = TRUE)
+print(mean(age_sample))
+print(sd(age_sample))
+
+mean_sample = c()
+
+for (i in 0:100) {
+  sample = sample(population, sample_size, replace = TRUE)
+  mean_sample[i] = mean(sample)
+}
+hist(mean_sample)
+```
+
+```{r}
+# For Sample Size = 500
+sample_size = 500
+age_sample = sample(population, sample_size, replace = TRUE)
+print(mean(age_sample))
+print(sd(age_sample))
+
+mean_sample = c()
+
+for (i in 0:100) {
+  sample = sample(population, sample_size, replace = TRUE)
+  mean_sample[i] = mean(sample)
+}
+hist(mean_sample)
+```
+```{r}
+# For Sample Size = 800
+sample_size = 800
+age_sample = sample(population, sample_size, replace = TRUE)
+print(mean(age_sample))
+print(sd(age_sample))
+
+mean_sample = c()
+
+for (i in 0:100) {
+  sample = sample(population, sample_size, replace = TRUE)
+  mean_sample[i] = mean(sample)
+}
+hist(mean_sample)
+```
+
+##4. (30 points) If the true proportion of students in class who support the homework due date to be on Wednesday is π = 0.6, what is the probability that a sample of size 25 yields a sample proportion between 0.65 and 0.6? Use R to solve it.
+
+```{r}
+mu_p <- 0.6
+one_minus_mu_p <- 1- mu_p
+n <- 25
+n_pi <- mu_p * n
+n_one_minus_pi <- (1 - mu_p) * n
+
+# Since npi and n(1-pi) are greater than and equal to 10, we assume a normal distribution
+sigma_p <- sqrt((mu_p * one_minus_mu_p)/n)
+
+# probability that a sample of size 25 yields a sample proportion between 0.65 and 0.6
+# P(0.6 < p_hat < 0.65) 
+pnorm(0.65, mu_p, sigma_p)  - pnorm(0.60, mu_p, sigma_p)
+
+# Therefore, the probability is 0.195083
+```
+
+
